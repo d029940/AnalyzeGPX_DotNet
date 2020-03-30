@@ -24,6 +24,7 @@ namespace AnalyzeGPX
             if (mainWindow.gpxContentPage == null)
                 mainWindow.gpxContentPage = new GpxContentPage();
             mainWindow.Main.Content = mainWindow.gpxContentPage;
+            mainWindow.Title = MainWindow.WindowTitle + " - " + mainWindow.gpxContentPage.Title;
 
             // Parse GPX file
             try

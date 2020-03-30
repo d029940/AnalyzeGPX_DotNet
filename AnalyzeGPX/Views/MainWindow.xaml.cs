@@ -12,6 +12,9 @@ namespace AnalyzeGPX
     {
         public MainWindowViewModel ViewModel { get; set; } = new MainWindowViewModel();
 
+
+        public const string WindowTitle = "Analyze GPX";
+
         private WelcomePage startPage = new WelcomePage();
         private ListGpxFilesPage listGpxFilesPage;
         public GpxContentPage gpxContentPage { get; set; }
@@ -21,6 +24,7 @@ namespace AnalyzeGPX
         {
             InitializeComponent();
             Main.Content = startPage;
+            this.Title = WindowTitle + " - " + startPage.Title;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -44,6 +48,7 @@ namespace AnalyzeGPX
                 if (gpxContentPage == null)
                     gpxContentPage = new GpxContentPage();
                 Main.Content = gpxContentPage;
+                this.Title = WindowTitle + " - " + gpxContentPage.Title;
                 try
                 {
                      gpxContentPage.GpxContentUserControl.GpxFile.LoadTables(openFileDialog.FileName);
@@ -63,6 +68,8 @@ namespace AnalyzeGPX
                 listGpxFilesPage = new ListGpxFilesPage();
             }
             Main.Content = listGpxFilesPage;
+            this.Title = WindowTitle + " - " + listGpxFilesPage.Title;
+
             listGpxFilesPage.PopulateTreeView();
         }
 

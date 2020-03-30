@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:AnalyzeGPX"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ListGpxFiles"
+      Title="List of GPX Files"
       DataContext="{Binding ViewModel, RelativeSource={RelativeSource self}}">
 
     <Grid>
