@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnalyzeGPX", "AnalyzeGPX\AnalyzeGPX.csproj", "{75EC5AEC-D7D8-48EC-BB17-902D8442B5BC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75EC5AEC-D7D8-48EC-BB17-902D8442B5BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75EC5AEC-D7D8-48EC-BB17-902D8442B5BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75EC5AEC-D7D8-48EC-BB17-902D8442B5BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75EC5AEC-D7D8-48EC-BB17-902D8442B5BC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4C2BB60B-CE7F-48F9-850E-67B5B5AB88BC}
+	EndGlobalSection
+EndGlobal
