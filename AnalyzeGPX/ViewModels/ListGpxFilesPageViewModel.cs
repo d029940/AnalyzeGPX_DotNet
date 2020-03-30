@@ -21,20 +21,26 @@ namespace AnalyzeGPX
 
             // Get Page for listing GPX content
             MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
+
             if (mainWindow.gpxContentPage == null)
                 mainWindow.gpxContentPage = new GpxContentPage();
-            mainWindow.Main.Content = mainWindow.gpxContentPage;
-            mainWindow.Title = MainWindow.WindowTitle + " - " + mainWindow.gpxContentPage.Title;
 
             // Parse GPX file
             try
             {
                 mainWindow.gpxContentPage.GpxContentUserControl.GpxFile.LoadTables(filename);
             }
-            catch (Exception ex)
+            catch (System.Xml.XmlException ex)
             {
-                MessageBox.Show(ex.Message);
+                // TODO: Localization
+                MessageBox.Show($"File: {new System.Uri(ex.SourceUri).LocalPath} {Environment.NewLine} {ex.Message}",
+                    "GPX-File - Format Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
             }
+            mainWindow.Main.Content = mainWindow.gpxContentPage;
+            mainWindow.Title = MainWindow.WindowTitle + " - " + mainWindow.gpxContentPage.Title;
         }
 
         private RelayCommand<GpxFiles> _isSelected = null;

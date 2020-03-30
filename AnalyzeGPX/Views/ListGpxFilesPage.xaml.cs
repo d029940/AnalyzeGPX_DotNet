@@ -29,7 +29,11 @@ namespace AnalyzeGPX
 
         #endregion
 
-
+        /// <summary>
+        /// Reads from all attached devices and looks for a GPX files in \Garmin\GPX\ folders.
+        /// It shows all GPX files in a tree structure
+        /// There is no check whether the contents of a GPX file is valid.
+        /// </summary>
         public void PopulateTreeView()
         {
             // TODO: Create Commands: Should go into another file
@@ -63,7 +67,7 @@ namespace AnalyzeGPX
                 trvMenu.Visibility = Visibility.Visible;
         }
 
-        // TODO: Create Commands???
+        // TODO: Create Commands - only a small portion is UI independant???
         /// <summary>
         /// The item selected in a treeview, i.e. its title, is converted to a full filename
         /// This filename is considered as a GPX file and parsed. The content of this GPX file
@@ -74,8 +78,8 @@ namespace AnalyzeGPX
         private void trvMenu_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
             // Remark about MVVM pattern
-            // Only the construction of the GPX filename and its parsing is GUI-independent.
-            // Displaying the result, i.e. the content is GUI dependant - in this case, it is a gpxContentPage
+            // Only the construction of the GPX filename and its parsing is UI-independent.
+            // Displaying the result, i.e. the content is UI dependant - in this case, it is a gpxContentPage
 
             //Construct filename of selected item
             string filename = ((GpxFiles)e.NewValue).Path + Path.DirectorySeparatorChar + ((GpxFiles)e.NewValue).Title;
@@ -84,18 +88,23 @@ namespace AnalyzeGPX
             MainWindow mainWindow = (MainWindow)Application.Current.MainWindow;
             if (mainWindow.gpxContentPage == null)
                 mainWindow.gpxContentPage = new GpxContentPage();
-            mainWindow.Main.Content = mainWindow.gpxContentPage;
-            mainWindow.Title = MainWindow.WindowTitle + " - " + mainWindow.gpxContentPage.Title;
 
             // Parse GPX file
             try
             {
                 mainWindow.gpxContentPage.GpxContentUserControl.GpxFile.LoadTables(filename);
             }
-            catch (Exception ex)
+            catch (System.Xml.XmlException ex)
             {
-                MessageBox.Show(ex.Message);
+                // TODO: Localization
+                MessageBox.Show($"File: {new System.Uri(ex.SourceUri).LocalPath} {Environment.NewLine} {ex.Message}",
+                    "GPX-File - Format Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+                return;
             }
+            mainWindow.Main.Content = mainWindow.gpxContentPage;
+            mainWindow.Title = MainWindow.WindowTitle + " - " + mainWindow.gpxContentPage.Title;
         }
 
     }

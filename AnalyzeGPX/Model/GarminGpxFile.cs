@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using System.Xml;
 
 namespace AnalyzeGPX
 {
@@ -35,8 +36,6 @@ namespace AnalyzeGPX
 
         #region Private members
 
-        private string filename;
-
         /// <summary>
         /// For XML parsing
         /// </summary>
@@ -58,14 +57,14 @@ namespace AnalyzeGPX
         /// Loads a garmin GPX file in the gpxFile object <see cref="GarminGpxFile"/>
         /// </summary>
         /// <param name="filename">The full path of the GPX file to read</param>
-        /// <exception cref="FileFormatException">If the GPX file does not conform to XML format</exception>
+        /// <exception cref="XmlException">If the GPX file does not conform to XML format</exception>
         public void LoadTables(string filename)
         {
             try
             {
                 this.Load(filename);
             }
-            catch (FileFormatException)
+            catch (XmlException)
             {
                 throw;
             }
@@ -76,17 +75,22 @@ namespace AnalyzeGPX
         /// Loads a GPX file which needs then to be parsed with <see cref="GetAllTypes()"/>
         /// </summary>
         /// <param name="filename">The full path of the GPX file to read</param>
-        /// <exception cref="FileFormatException">If the GPX file does not conform to XML format</exception>
+        /// <exception cref="XmlException">If the GPX file does not conform to XML format</exception>
         public void Load(string filename)
         {
-            this.filename = filename;
             Tracks.Clear();
             Routes.Clear();
             Waypoints.Clear();
 
-            gpx = XElement.Load(filename);
-            if (gpx == null)
-                throw new FileFormatException();
+            try
+            {
+                gpx = XElement.Load(filename);
+            }
+            catch (XmlException)
+            {
+                throw;
+
+            }
             defaultNS = gpx.GetDefaultNamespace();
         }
 

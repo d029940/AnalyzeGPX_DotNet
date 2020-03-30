@@ -20,7 +20,7 @@
             <TreeView.ItemContainerStyle>
                 <Style TargetType="TreeViewItem">
                     <Setter Property="IsExpanded" Value="True"/>
-                    <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+                    <!--<Setter Property="IsSelected" Value="{Binding IsSelected}"/>-->
                 </Style>
             </TreeView.ItemContainerStyle>
         </TreeView>

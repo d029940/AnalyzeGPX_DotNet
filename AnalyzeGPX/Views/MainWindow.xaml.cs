@@ -51,7 +51,7 @@ namespace AnalyzeGPX
                 this.Title = WindowTitle + " - " + gpxContentPage.Title;
                 try
                 {
-                     gpxContentPage.GpxContentUserControl.GpxFile.LoadTables(openFileDialog.FileName);
+                    gpxContentPage.GpxContentUserControl.GpxFile.LoadTables(openFileDialog.FileName);
                 }
                 catch (FileFormatException ex)
                 {
@@ -63,10 +63,12 @@ namespace AnalyzeGPX
 
         private void LoadGarminButton_Click(object sender, RoutedEventArgs e)
         {
-            if (listGpxFilesPage == null)
-            {
-                listGpxFilesPage = new ListGpxFilesPage();
-            }
+            if (listGpxFilesPage != null)
+                // Reset it first to null because the current page could be any page and treeview of files can be invalidated
+                // e.g. if an exception occured
+                listGpxFilesPage = null;
+            listGpxFilesPage = new ListGpxFilesPage();
+
             Main.Content = listGpxFilesPage;
             this.Title = WindowTitle + " - " + listGpxFilesPage.Title;
 
