@@ -53,7 +53,7 @@ namespace AnalyzeGPX
                 {
                      gpxContentPage.GpxContentUserControl.GpxFile.LoadTables(openFileDialog.FileName);
                 }
-                catch (Exception ex)
+                catch (FileFormatException ex)
                 {
                     MessageBox.Show(ex.Message);
                 }

@@ -63,9 +63,20 @@ namespace AnalyzeGPX
                 trvMenu.Visibility = Visibility.Visible;
         }
 
-        // TODO: Create Commands
+        // TODO: Create Commands???
+        /// <summary>
+        /// The item selected in a treeview, i.e. its title, is converted to a full filename
+        /// This filename is considered as a GPX file and parsed. The content of this GPX file
+        /// is displayed on <see cref="GpxContentPage"/> Page.
+        /// </summary>
+        /// <param name="sender">treeview</param>
+        /// <param name="e">represents the selected treeview item</param>
         private void trvMenu_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
+            // Remark about MVVM pattern
+            // Only the construction of the GPX filename and its parsing is GUI-independent.
+            // Displaying the result, i.e. the content is GUI dependant - in this case, it is a gpxContentPage
+
             //Construct filename of selected item
             string filename = ((GpxFiles)e.NewValue).Path + Path.DirectorySeparatorChar + ((GpxFiles)e.NewValue).Title;
 

@@ -15,6 +15,6 @@ namespace AnalyzeGPX
         public string Path { get; set; }
 
         // Children (i.e. drives with gpx files or gpx files themselves)
-        public ObservableCollection<GpxFiles> Items { get; set; }
+        public ObservableCollection<GpxFiles> Items { get; }
     }
 }

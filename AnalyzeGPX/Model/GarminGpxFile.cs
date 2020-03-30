@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 
@@ -57,13 +58,14 @@ namespace AnalyzeGPX
         /// Loads a garmin GPX file in the gpxFile object <see cref="GarminGpxFile"/>
         /// </summary>
         /// <param name="filename">The full path of the GPX file to read</param>
+        /// <exception cref="FileFormatException">If the GPX file does not conform to XML format</exception>
         public void LoadTables(string filename)
         {
             try
             {
                 this.Load(filename);
             }
-            catch (Exception ex)
+            catch (FileFormatException)
             {
                 throw;
             }
@@ -74,6 +76,7 @@ namespace AnalyzeGPX
         /// Loads a GPX file which needs then to be parsed with <see cref="GetAllTypes()"/>
         /// </summary>
         /// <param name="filename">The full path of the GPX file to read</param>
+        /// <exception cref="FileFormatException">If the GPX file does not conform to XML format</exception>
         public void Load(string filename)
         {
             this.filename = filename;
@@ -81,15 +84,10 @@ namespace AnalyzeGPX
             Routes.Clear();
             Waypoints.Clear();
 
-            try
-            {
-                gpx = XElement.Load(filename);
-                defaultNS = gpx.GetDefaultNamespace();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            gpx = XElement.Load(filename);
+            if (gpx == null)
+                throw new FileFormatException();
+            defaultNS = gpx.GetDefaultNamespace();
         }
 
         /// <summary>
