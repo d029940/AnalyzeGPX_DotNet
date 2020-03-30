@@ -46,7 +46,7 @@ namespace AnalyzeGPX
                 Main.Content = gpxContentPage;
                 try
                 {
-                     gpxContentPage.GpxContentUserControl.LoadTables(openFileDialog.FileName);
+                     gpxContentPage.GpxContentUserControl.GpxFile.LoadTables(openFileDialog.FileName);
                 }
                 catch (Exception ex)
                 {

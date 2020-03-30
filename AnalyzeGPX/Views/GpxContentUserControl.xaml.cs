@@ -19,8 +19,8 @@ namespace AnalyzeGPX.Views
     public partial class GpxContentUserControl : UserControl
     {
         private Visibility mHScrollbarVisible = Visibility.Hidden;
-        private GarminGpxFile gpxFile = new GarminGpxFile();
 
+        private GarminGpxFile gpxFile = new GarminGpxFile();
         public GarminGpxFile GpxFile { get => gpxFile; }
 
         public GpxContentUserControl()
@@ -65,24 +65,5 @@ namespace AnalyzeGPX.Views
         }
         #endregion
 
-        #region Commands
-        // TODO: Create Commands
-        /// <summary>
-        /// Loads a garmin GPX file in the gpxFile object <see cref="GarminGpxFile"/>
-        /// </summary>
-        /// <param name="filename">The full path of the GPX file to read</param>
-        public void LoadTables(string filename)
-        {
-            try
-            {
-                gpxFile.Load(filename);
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            gpxFile.GetAllTypes();
-        }
-        #endregion
     }
 }

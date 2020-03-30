@@ -78,7 +78,7 @@ namespace AnalyzeGPX
             // Parse GPX file
             try
             {
-                mainWindow.gpxContentPage.GpxContentUserControl.LoadTables(filename);
+                mainWindow.gpxContentPage.GpxContentUserControl.GpxFile.LoadTables(filename);
             }
             catch (Exception ex)
             {
