@@ -2,6 +2,7 @@
 using System.Windows;
 using System.IO;
 using Microsoft.Win32;
+using System.Resources;
 
 namespace AnalyzeGPX
 {
@@ -10,8 +11,10 @@ namespace AnalyzeGPX
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindowViewModel ViewModel { get; set; } = new MainWindowViewModel();
 
+        // Create a resource manager to retrieve resources.
+
+        public MainWindowViewModel ViewModel { get; set; } = new MainWindowViewModel();
 
         public const string WindowTitle = "Analyze GPX";
 
@@ -47,16 +50,21 @@ namespace AnalyzeGPX
             {
                 if (gpxContentPage == null)
                     gpxContentPage = new GpxContentPage();
-                Main.Content = gpxContentPage;
-                this.Title = WindowTitle + " - " + gpxContentPage.Title;
                 try
                 {
                     gpxContentPage.GpxContentUserControl.GpxFile.LoadTables(openFileDialog.FileName);
                 }
-                catch (FileFormatException ex)
+                catch (System.Xml.XmlException ex)
                 {
-                    MessageBox.Show(ex.Message);
+                    // TODO: Localization
+                    MessageBox.Show($"File: {new System.Uri(ex.SourceUri).LocalPath} {Environment.NewLine} {ex.Message}",
+                        App.ResourceManager.GetString("GPX-File - Format Error"),
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    return;
                 }
+                Main.Content = gpxContentPage;
+                this.Title = WindowTitle + " - " + gpxContentPage.Title;
 
             }
         }

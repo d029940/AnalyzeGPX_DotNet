@@ -5,6 +5,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <ApplicationIcon>Icons\AnalyzeGPX.ico</ApplicationIcon>
+    <Authors>Manfred Kern</Authors>
+    <Description>Analyzes Garmin GPX files</Description>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <Copyright>Copyright ©  Manfred Kern 2020</Copyright>
     <!--<UICulture>en-US</UICulture>-->
   </PropertyGroup>
 
@@ -14,6 +18,21 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="System.Console" Version="4.3.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

@@ -98,7 +98,7 @@ namespace AnalyzeGPX
             {
                 // TODO: Localization
                 MessageBox.Show($"File: {new System.Uri(ex.SourceUri).LocalPath} {Environment.NewLine} {ex.Message}",
-                    "GPX-File - Format Error",
+                    App.ResourceManager.GetString("GPX-File - Format Error"),
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
                 return;
