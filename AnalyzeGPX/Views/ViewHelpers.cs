@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Xml;
+using System.Globalization;
 
 namespace AnalyzeGPX
 {
@@ -15,11 +16,10 @@ namespace AnalyzeGPX
         /// Shows a GPX error message (GPX is based on XML)
         /// </summary>
         /// <param name="ex">exception to show</param>
-        public static void ShowGPXErrorMessage(XmlException ex)
+        internal static void ShowGPXErrorMessage(XmlException ex)
         {
-            // TODO: Localization
-            MessageBox.Show($"File: {new System.Uri(ex.SourceUri).LocalPath} {Environment.NewLine} {ex.Message}",
-                App.ResourceManager.GetString("GPX-File - Format Error"),
+             MessageBox.Show($"File: {new System.Uri(ex.SourceUri).LocalPath} {Environment.NewLine} {ex.Message}",
+                App.ResourceManager.GetString("GPX-File - Format Error", CultureInfo.CurrentUICulture),
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
         }
