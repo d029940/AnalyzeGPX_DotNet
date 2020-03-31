@@ -56,11 +56,7 @@ namespace AnalyzeGPX
                 }
                 catch (System.Xml.XmlException ex)
                 {
-                    // TODO: Localization
-                    MessageBox.Show($"File: {new System.Uri(ex.SourceUri).LocalPath} {Environment.NewLine} {ex.Message}",
-                        App.ResourceManager.GetString("GPX-File - Format Error"),
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Error);
+                    ViewHelpers.ShowGPXErrorMessage(ex);
                     return;
                 }
                 Main.Content = gpxContentPage;
