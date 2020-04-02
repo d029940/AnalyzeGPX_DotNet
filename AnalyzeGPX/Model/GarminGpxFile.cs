@@ -58,6 +58,7 @@ namespace AnalyzeGPX
         /// </summary>
         /// <param name="filename">The full path of the GPX file to read</param>
         /// <exception cref="XmlException">If the GPX file does not conform to XML format</exception>
+        /// <exception cref="FileNotFoundException">If the GPX file does not exist or invalid filename</exception>
         public void LoadTables(string filename)
         {
             try
@@ -65,6 +66,10 @@ namespace AnalyzeGPX
                 this.Load(filename);
             }
             catch (XmlException)
+            {
+                throw;
+            }
+            catch (FileNotFoundException)
             {
                 throw;
             }
@@ -76,6 +81,7 @@ namespace AnalyzeGPX
         /// </summary>
         /// <param name="filename">The full path of the GPX file to read</param>
         /// <exception cref="XmlException">If the GPX file does not conform to XML format</exception>
+        /// <exception cref="FileNotFoundException">If the GPX file does not exist or invalid filename</exception>
         public void Load(string filename)
         {
             Tracks.Clear();
@@ -90,6 +96,10 @@ namespace AnalyzeGPX
             {
                 throw;
 
+            }
+            catch (FileNotFoundException)
+            { 
+                throw;
             }
             defaultNS = gpx.GetDefaultNamespace();
         }

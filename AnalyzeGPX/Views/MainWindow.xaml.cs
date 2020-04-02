@@ -59,6 +59,11 @@ namespace AnalyzeGPX
                     ViewHelpers.ShowGPXErrorMessage(ex);
                     return;
                 }
+                catch (FileNotFoundException ex)
+                {
+                    ViewHelpers.ShowFileNotFoundErrorMessage(ex);
+                    return;
+                }
                 Main.Content = gpxContentPage;
                 this.Title = WindowTitle + " - " + gpxContentPage.Title;
 

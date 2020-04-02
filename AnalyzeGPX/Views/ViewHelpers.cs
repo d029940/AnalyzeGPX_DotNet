@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.IO;
 using System.Xml;
 using System.Globalization;
 
@@ -22,6 +23,18 @@ namespace AnalyzeGPX
                 App.ResourceManager.GetString("GPX-File - Format Error", CultureInfo.CurrentUICulture),
                 MessageBoxButton.OK,
                 MessageBoxImage.Error);
+        }
+
+        /// <summary>
+        /// Shows an error message in case of file not found or invalid filename
+        /// </summary>
+        /// <param name="ex">exception to show</param>
+        internal static void ShowFileNotFoundErrorMessage(FileNotFoundException ex)
+        {
+            MessageBox.Show($"File: {ex.FileName} {Environment.NewLine} {ex.Message}",
+               App.ResourceManager.GetString("File not found or invalid filename", CultureInfo.CurrentUICulture),
+               MessageBoxButton.OK,
+               MessageBoxImage.Error);
         }
     }
 }

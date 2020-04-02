@@ -61,6 +61,15 @@ namespace AnalyzeGPX {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File not found or invalid filename.
+        /// </summary>
+        internal static string File_not_found_or_invalid_filename {
+            get {
+                return ResourceManager.GetString("File not found or invalid filename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to GPX-File - Format Error.
         /// </summary>
         internal static string GPX_File___Format_Error {
