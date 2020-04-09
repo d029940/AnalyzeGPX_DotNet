@@ -12,8 +12,17 @@
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
         </Style>
+        <Style TargetType="ListViewItem">
+            <Setter Property="ContextMenu">
+                <Setter.Value>
+                <ContextMenu>
+                    <MenuItem Header="Delete"/>
+                    <MenuItem Header="Change Name"/>
+                </ContextMenu>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
-
     <Border BorderThickness="5">
         <Grid>
             <Grid Margin="0, 10, 0, 0">
