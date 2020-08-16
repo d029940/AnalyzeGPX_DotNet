@@ -50,8 +50,36 @@ namespace AnalyzeGPX
                             Path = System.IO.Path.GetDirectoryName(gpxFile)
                         });
                     }
+
+                    // TODO: Implement the Watcher correctly
+                    // Watch directory for changes
+                    using (FileSystemWatcher watcher = new FileSystemWatcher())
+                    {
+                        watcher.Path = gpxDirectoryPath;
+
+                        // Watch for changes in LastAccess and LastWrite times, and
+                        // the renaming of files or directories.
+                        watcher.NotifyFilter = NotifyFilters.LastAccess 
+                            | NotifyFilters.LastWrite 
+                            | NotifyFilters.FileName 
+                            | NotifyFilters.DirectoryName;
+
+                        // Only watch GPX files.
+                        watcher.Filter = "*.gpx";
+
+                        // Add event handlers.
+                        watcher.Changed += OnChanged;
+                        watcher.Created += OnChanged;
+                        watcher.Deleted += OnChanged;
+                        watcher.Renamed += OnChanged;
+                    }
                 }
             }
         }
+
+        // Define the event handlers.
+        private static void OnChanged(object source, FileSystemEventArgs e) =>
+            // Reload when a file is changed, created, or deleted.
+            Console.WriteLine($"File: {e.FullPath} {e.ChangeType}");
     }
 }
