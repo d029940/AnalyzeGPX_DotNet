@@ -13,13 +13,14 @@ namespace AnalyzeGPX
         public GpxFiles()
         {
             this.Items = new ObservableCollection<GpxFiles>();
+            //this.Items = new List<GpxFiles>();
         }
         public string Title { get; set; }
         public string Path { get; set; }
 
         // Children (i.e. drives with gpx files or gpx files themselves)
         public ObservableCollection<GpxFiles> Items { get; }
-
+        //public List<GpxFiles> Items { get; }
 
         /// <summary>
         /// Reads from all attached devices and looks for a GPX files in \Garmin\GPX\ folders.
@@ -73,6 +74,42 @@ namespace AnalyzeGPX
                         watcher.Deleted += OnChanged;
                         watcher.Renamed += OnChanged;
                     }
+                }
+            }
+        }
+
+        public void DeleteGpxFile(string path)
+        {
+            // check for drive / device
+            FileInfo fileInfo = new FileInfo(path);
+            if ((fileInfo.Attributes & FileAttributes.Normal) != FileAttributes.Normal) return;
+
+            string dirName = fileInfo.DirectoryName;
+
+            foreach (var item in Items)
+            {
+                if (item.Path == dirName)
+                {
+                    var children = item.Items;
+
+                    // check for path
+                    GpxFiles gpxFile = null;
+                    foreach (var file in children)
+                    {
+                        if (file.Path == path)
+                        {
+                            gpxFile = file;
+                            break;
+                        }
+                    }
+                    if (gpxFile == null) return;
+
+                    // Remove path from internal table
+                    children.Remove(gpxFile);
+                    // delete path (file)
+                    // TODO: go on here
+                    fileInfo.Delete();
+                    return;
                 }
             }
         }
